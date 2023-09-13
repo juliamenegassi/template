@@ -1,27 +1,53 @@
-import { Alert, Box, Button, Container, Link, TextField } from '@mui/material';
-import React, { useState } from 'react'
+import { Box, Container, TextField, Button, Alert } from "@mui/material";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-function Filmes() {
+function EditaFilme() {
 
+    const { id } = useParams();
     const [titulo, setTitulo] = useState("");
     const [descricao, setDescricao] = useState("");
     const [ano, setAno] = useState("");
     const [duracao, setDuracao] = useState("");
     const [categoria, setCategoria] = useState("");
     const [imagem, setImagem] = useState("");
-    const [cadastro, setCadastro] = useState(false);
+    const [editar, setEditar] = useState(false);
     const [erro, setErro] = useState(false);
 
+    useEffect( () => {
+        fetch( process.env.REACT_APP_BACKEND + "filmes/" + id, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((resposta) => resposta.json())
+        .then((json) => {
+            if( !json.status ) {
+                setTitulo( json.titulo );
+                setDescricao( json.descricao );
+                setAno( json.ano );
+                setDuracao( json.duracao);
+                setImagem( json.imagem );
+                setCategoria( json.categoria );
+            } else {
+                setErro( "Filme não encontrado" );
+            }
+        })
+        .catch((erro) => { setErro(true) })
+    }, [] );
 
-    function Cadastrar(evento) {
+    function Editar( evento ) {
         evento.preventDefault();
+
         fetch( process.env.REACT_APP_BACKEND + "filmes", {
-            method: "POST",
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(
                 {
+                    id: id,
                     titulo: titulo,
                     descricao: descricao,
                     ano: ano,
@@ -31,20 +57,21 @@ function Filmes() {
                 }
             )
         })
-            .then((resposta) => resposta.json())
-            .then((json) => {
+        .then((resposta) => resposta.json())
+        .then((json) => {
 
-                if (json._id) {
-                    setCadastro(true);
-                    setErro( false );
-                } else {
-                    setErro(true);
-                    setCadastro( false );
-                }
-            })
-            .catch((erro) => { setErro(true) })
-
+            if (json._id) {
+                setEditar(true);
+                setErro( false );
+            } else {
+                setErro(true);
+                setEditar( "Não foi possível editar o filme" );
+            }
+        })
+        .catch((erro) => { setErro( "Erro ao processar a requisição") })
     }
+
+
 
 
     return (
@@ -58,9 +85,9 @@ function Filmes() {
                 flexDirection: "column",
                 alignItems: "center"
             }}>
-                { erro && (<Alert severity="warning">Filme já cadastrado. Tente novamente por favor!</Alert>) }
-                { cadastro && ( <Alert severity="success">Obrigado por cadastrar seu filme!</Alert> )}
-                <Box component="form" onSubmit={Cadastrar}>
+                { erro && ( <Alert severity="warning">{erro}</Alert>)}
+                { editar && ( <Alert severity="success">Filme editado com sucesso</Alert>)}
+                <Box component="form" onSubmit={Editar}>
                     <TextField
                         type="text"
                         label="Título"
@@ -121,11 +148,12 @@ function Filmes() {
                         fullWidth
                         required
                     />
-                    <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, mb: 2 }} >Cadastrar</Button>
+                    <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, mb: 2 }} >Editar</Button>
                 </Box>
+
             </Box>
         </Container>
     )
 }
 
-export default Filmes;
+export default EditaFilme;
