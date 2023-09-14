@@ -8,6 +8,7 @@ import CadastroUsuario from "./pages/CadastroUsuario";
 import ErroPage from './pages/ErroPage';
 import App from './pages/App';
 import CadastroProduto from './pages/CadastroProduto';
+import "./App.css";
 
 const theme = createTheme({
   palette: {

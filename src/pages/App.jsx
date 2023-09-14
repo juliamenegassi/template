@@ -22,8 +22,12 @@ function App() {
             } )
             .then( (resposta) => resposta.json() )
             .then( ( json ) => {
-        
-                setProdutos( json );
+                if( json.length === 0 ) {
+                    setErro( "Sem produtos cadastrados!" );
+                } else {
+                    setProdutos( json );
+                }
+                
             } )
             .catch( ( erro ) => {  setErro( "Estamos com um problema" ) } )
         }
@@ -65,6 +69,7 @@ function App() {
     return (
         <>
             <Container sx={{ display: "flex", gap: "2rem", flexWrap: "wrap" }} >
+                { erro && ( <span>{erro}</span>)}
                 { produtos && (
                     produtos.map( (produto, index ) => (
                         <Produto 
@@ -77,6 +82,7 @@ function App() {
                         />
                     ) )
                 )}
+                
             </Container>
         </>
         

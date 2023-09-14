@@ -1,6 +1,13 @@
+import { AppBar, Container, Toolbar } from "@mui/material";
+
 function Header() {
   return (
-    <div>Header</div>
+    <AppBar position="static">
+        <Container maxWidth="xl">
+            <Toolbar disableGutters>
+            </Toolbar>
+        </Container>
+    </AppBar>
   )
 }
 
