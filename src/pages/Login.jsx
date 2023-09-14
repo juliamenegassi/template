@@ -1,9 +1,7 @@
-import { Alert, Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Checkbox, Container, FormControlLabel, Grid, TextField, Typography, Link } from '@mui/material';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigate, json } from 'react-router-dom';
-
-
 
 function Login() {
 
@@ -14,8 +12,6 @@ function Login() {
   const [ erro, setErro ] = useState( false );
   const navigate = useNavigate();
 
-
-    /*  */
   useEffect( () => {
 
     if( login ) {
@@ -96,10 +92,10 @@ function Login() {
                 <Button type="submit" variant="contained" fullWidth sx={ { mt: 2, mb: 2 }} size="large">Login</Button>
                 <Grid container>
                     <Grid item xs>
-                        Esqueci a senha
+                        <Link href="">Esqueceu a senha?</Link>
                     </Grid>
                     <Grid item>
-                        Cadastrar
+                        <Link href="/cadastro">Cadastrar</Link>
                     </Grid>
                 </Grid>
             </Box>

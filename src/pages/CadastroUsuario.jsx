@@ -1,7 +1,7 @@
 import { Alert, Box, Button, Container, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 
-function Cadastro() {
+function CadastroUsuario() {
 
   const [ nome, setNome ] = useState( "" );
   const [ email, setEmail ] = useState( "" );
@@ -14,7 +14,7 @@ function Cadastro() {
   function Cadastrar( evento ) {
 
     evento.preventDefault();
-    fetch( process.env.REACT_APP_BACKEND + "users", {
+    fetch( process.env.REACT_APP_BACKEND + "usuarios", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -35,11 +35,11 @@ function Cadastro() {
         setCadstro( true );
         setErro( false );
       } else {
-        setErro( true );
+        setErro( "Usuário já cadastrado" );
         setCadstro( false );
       }
     } )
-    .catch( ( erro ) => { setErro( true ) } )
+    .catch( ( erro ) => { setErro( "Ops...ocorreu um erro" ) } )
     
   }
 
@@ -50,8 +50,6 @@ function Cadastro() {
     setCpf( "" );
     setTelefone( "" );
     setSenha( "" );
-    //setCadstro( false );
-
   }, [ cadastro ] );
 
   return (
@@ -65,7 +63,7 @@ function Cadastro() {
             flexDirection: "column",
             alignItems: "center"
         }}>
-            <Typography component="h1" variant='h4'>Cadastrar</Typography>
+            <Typography component="h1" variant='h4'>Cadastro de usuário</Typography>
             { erro && ( <Alert severity="warning" sx={{ mt: 2, mb: 2 }} >Desculpe tente novamente</Alert> ) }
             { cadastro && ( <Alert severity="success" sx={{ mt: 2, mb: 2 }}>Obrigado por se cadastrar</Alert>)}
             <Box component="form" onSubmit={Cadastrar}>
@@ -126,4 +124,4 @@ function Cadastro() {
   )
 }
 
-export default Cadastro;
+export default CadastroUsuario;

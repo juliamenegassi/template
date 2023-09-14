@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import App from './App';
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
-import Login from './Login';
-import Cadastro from "./Cadastro";
-import Filmes from './Filmes';
-import EditaFilme from './EditaFilme';
+import Login from './pages/Login';
+import CadastroUsuario from "./pages/CadastroUsuario";
+import ErroPage from './pages/ErroPage';
+import CadastroProduto from './pages/CadastroProduto';
 
 const theme = createTheme({
   palette: {
@@ -51,23 +51,27 @@ const theme = createTheme({
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />
-  },
-  {
-    path: "/login",
-    element: <Login />
+    element: <Login />,
+    errorElement: <ErroPage />
   },
   {
     path: "/cadastro",
-    element: <Cadastro />
+    element: <CadastroUsuario />,
+    errorElement: <ErroPage />
   },
   {
-    path: "/filmes",
-    element: <Filmes />
-  },
-  {
-    path: "/edicao/:id",
-    element: <EditaFilme />
+    path: "/dashboard",
+    element: <App />,
+    children:[
+      {
+        path: "produto/inserir",
+        element: <CadastroProduto />
+      },
+      {
+        path: "produto/editar/:id",
+        element: <CadastroUsuario />
+      },
+    ]
   }
 ]);
 
