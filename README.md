@@ -6,11 +6,13 @@ Desenvolvido para as aulas iniciais de React do Técnico em Desenvolvimento de S
 
 Alguns pacotes devem ser instalados.
 
-REACT ROUTER DOM
+## REACT ROUTER DOM
 npm install react-router-dom
+https://reactrouter.com/en/main
 
-REACT ICONS
-npm install react-icons --save
+## MATERIAL UI
+npm install @mui/material @emotion/react @emotion/styled
+https://mui.com/material-ui/getting-started/
 
 ### `npm start`
 

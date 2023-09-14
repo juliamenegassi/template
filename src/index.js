@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import App from './App';
 import { createBrowserRouter, RouterProvider} from "react-router-dom";
 import Login from './pages/Login';
+import Dashboard from './Dashboard';
 import CadastroUsuario from "./pages/CadastroUsuario";
 import ErroPage from './pages/ErroPage';
+import App from './pages/App';
 import CadastroProduto from './pages/CadastroProduto';
 
 const theme = createTheme({
@@ -61,15 +62,19 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <App />,
+    element: <Dashboard />,
     children:[
       {
-        path: "produto/inserir",
+        path: "produtos",
+        element: <App />
+      },
+      {
+        path: "cadastro/produto",
         element: <CadastroProduto />
       },
       {
-        path: "produto/editar/:id",
-        element: <CadastroUsuario />
+        path: "editar/produto/:id",
+        element: <CadastroProduto />
       },
     ]
   }

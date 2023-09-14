@@ -10,15 +10,16 @@ function Login() {
   const [ lembrar, setLembrar ] = useState( false );
   const [ login, setLogin ] = useState( false );
   const [ erro, setErro ] = useState( false );
+  const [ usuario, setUsuario ] = useState( false );
   const navigate = useNavigate();
 
   useEffect( () => {
 
     if( login ) {
-        localStorage.setItem( "usuario" , JSON.stringify( {email: email } ) );
+        localStorage.setItem( "usuario" , JSON.stringify( usuario._id ) );
         setEmail( "" );
         setSenha( "" );
-        navigate( "/" );
+        navigate( "/dashboard" );
     }
 
   }, [ login ] );
@@ -43,6 +44,7 @@ function Login() {
 
         if( json.user ) {
             setLogin( true );
+            setUsuario( json.user );
         } else {
             setErro( true );
         }
