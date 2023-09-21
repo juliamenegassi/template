@@ -78,6 +78,7 @@ function App() {
                             titulo={produto.titulo}
                             imagem={produto.imagem}
                             descricao={produto.descricao}
+                            categoria={produto.categoria}
                             excluir={ (e) => Excluir( e, produto._id ) }
                         />
                     ) )

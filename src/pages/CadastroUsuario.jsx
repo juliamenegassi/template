@@ -56,7 +56,7 @@ function CadastroUsuario() {
     <Container component="section" maxWidth="sm">
         <Box sx={{ 
             mt: 10,
-            backgroundColor: "#EDEDED",
+            backgroundColor: "#E4F0EC",
             padding: "30px",
             borderRadius: "10px",
             display: "flex",

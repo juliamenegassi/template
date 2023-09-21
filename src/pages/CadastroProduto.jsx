@@ -13,11 +13,11 @@ function CadastroProduto() {
     const [imagem, setImagem] = useState("");
     const [erro, setErro] = useState(false);
     const [cadastro, setcadastro] = useState(false);
-    const [usuario, setUsuario] = useState(localStorage.getItem("usuario") || false);
     const { id } = useParams();
 
     function Cadastrar(evento) {
         evento.preventDefault();
+        const usuario = localStorage.getItem( "usuario" );
         if (usuario) {
             fetch(process.env.REACT_APP_BACKEND + "produtos", {
                 method: (id ? "PUT" : "POST" ),
@@ -65,6 +65,7 @@ function CadastroProduto() {
     useEffect( () => {
 
         if( id ) {
+            const usuario = localStorage.getItem("usuario");
             fetch(process.env.REACT_APP_BACKEND + "produtos/" + usuario + "/" + id, {
                 method: "GET",
                 headers: {
@@ -95,7 +96,7 @@ function CadastroProduto() {
         <Container component="section" maxWidth="sm">
             <Box sx={{
                 mt: 10,
-                backgroundColor: "#EDEDED",
+                backgroundColor: "#E4F0EC",
                 padding: "30px",
                 borderRadius: "10px",
                 display: "flex",

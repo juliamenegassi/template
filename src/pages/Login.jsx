@@ -16,10 +16,12 @@ function Login() {
   useEffect( () => {
 
     if( login ) {
-        localStorage.setItem( "usuario" , JSON.stringify( usuario._id ) );
+        localStorage.setItem( "usuario", usuario );
         setEmail( "" );
         setSenha( "" );
         navigate( "/dashboard" );
+    } else {
+        localStorage.removeItem( "usuario" );
     }
 
   }, [ login ] );
@@ -44,12 +46,14 @@ function Login() {
 
         if( json.user ) {
             setLogin( true );
-            setUsuario( json.user );
+            setUsuario( json.user._id );
+            setErro( false );
         } else {
-            setErro( true );
+            setErro( "Dados incorretos" );
+            setLogin( false );
         }
     } )
-    .catch( ( erro ) => {  setErro( true ) } )
+    .catch( ( erro ) => {  setErro( "ops...ocorreu um erro" ) } )
     
   }
 
@@ -58,7 +62,7 @@ function Login() {
         <Box 
         sx={{ 
             mt: 10,
-            backgroundColor: "#EDEDED",
+            backgroundColor: "#E4F0EC",
             padding: "30px",
             borderRadius: "10px",
             display: "flex",
